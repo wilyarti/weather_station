@@ -8,3 +8,5 @@ The pin out is simple, with A0 -> 100K resistor to the battery, D0 to RST and th
 The housing is 3D printed using a AnyCubic Kossel Linear Plus in PETG. It will need to be screwed together using fasteners readily available at any hardware store.
 
 The ThingSpeak channel is live and public here => https://thingspeak.com/channels/645847
+
+![alt text] (https://clinetworking.files.wordpress.com/2018/12/IMG_20181213_095707.jpg?w=1100 "Weather Station")
