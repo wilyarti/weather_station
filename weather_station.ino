@@ -2,7 +2,6 @@
 #include <BME280I2C.h>
 #include <ESP8266WiFi.h>
 #include <ThingSpeak.h>
-#include <SparkFun_VEML6075_Arduino_Library.h>
 #include <time.h>
 
 
