@@ -2,8 +2,11 @@
 #include <BME280I2C.h>
 #include <ESP8266WiFi.h>
 #include <ThingSpeak.h>
+#include <SparkFun_VEML6075_Arduino_Library.h>
+#include <time.h>
 
-unsigned long myChannelNumber = 123456;
+
+unsigned long myChannelNumber = 1234;
 const char * myWriteAPIKey = "";
 const char* ssid = "";
 const char* password = "";
@@ -14,7 +17,11 @@ WiFiClient client;
 
 BME280I2C bme;
 
+int sleepTime = 60;
+unsigned long curTime;
+
 void setup() {
+   curTime = millis();
   Serial.begin(115200);
 
   WiFi.begin(ssid, password);
@@ -27,16 +34,22 @@ void setup() {
   WiFi.begin(ssid, password);
 
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+    if (millis() - curTime > (60 * 1000)) {
+      goToSleep();
+    }
+    Serial.println(millis() - curTime);
+    delay(1000);
   }
   Serial.println("");
   Serial.println("WiFi connected");
-  
+
   Wire.begin();
-  while(!bme.begin())
+  while (!bme.begin())
   {
-    Serial.println("Could not find BME280 sensor!");
+    if (millis() - curTime > (60 * 1000)) {
+      goToSleep();
+    }
+    Serial.println(millis() - curTime);
     delay(1000);
   }
   // bme.chipID(); // Deprecated. See chipModel().
@@ -56,15 +69,20 @@ void setup() {
 
   // sleep
   WiFi.disconnect(true);
-  ESP.deepSleep(60*1000000); 
+  goToSleep();
 }
-
+void goToSleep() {
+    Serial.print("Sleeping for: ");
+    Serial.print(sleepTime);
+    Serial.println(" seconds.");
+    ESP.deepSleep(sleepTime * 1000000);
+}
 void measure() {
   float t(NAN);
   float p(NAN);
   float h(NAN);
-  float volt=0.0;
-  unsigned int raw=0;
+  float volt = 0.0;
+  unsigned int raw = 0;
   BME280::TempUnit tempUnit(BME280::TempUnit_Celsius);
   BME280::PresUnit presUnit(BME280::PresUnit_Pa);
 
@@ -80,9 +98,21 @@ void measure() {
   Serial.println("% send to Thingspeak");
   pinMode(A0, INPUT);
   raw = analogRead(A0);
-  volt=raw/1023.0;
-  volt=volt*4.2;
+  volt = raw / 1023.0;
+  volt = volt * 4.2;
   Serial.print(volt);
+
+ if (volt > 4.0) {
+  sleepTime = 60;
+ } else if (volt > 3.9) {
+  sleepTime = 120;
+ } else if (volt > 3.85) {
+  sleepTime = 180;
+ } else if (volt > 3.75) {
+  sleepTime = 240;
+ } else {
+  sleepTime = 60 * 30;
+ }
 
   // wifi
   float rssi = WiFi.RSSI();
@@ -97,4 +127,4 @@ void measure() {
 }
 
 void loop() {
-  }
+}
