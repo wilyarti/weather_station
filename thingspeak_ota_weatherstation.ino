@@ -49,7 +49,7 @@
 #include <SparkFun_VEML6075_Arduino_Library.h>
 #include <time.h>
 // Weather station end
-const String VERSION = "1.0.0";
+const String VERSION = "11";
 
 #define LED_PIN BUILTIN_LED // gpio2 for ESP-12, gpio1 for ESP-01
 
@@ -141,13 +141,13 @@ void goToSleep() {
   if (volt > 4.0) {
     sleepTime = theConfig.publishInterval;
   } else if (volt > 3.9) {
-    sleepTime = 120;
+    sleepTime = theConfig.publishInterval * 1.5;
   } else if (volt > 3.85) {
-    sleepTime = 180;
+    sleepTime = theConfig.publishInterval * 2;
   } else if (volt > 3.75) {
-    sleepTime = 240;
+    sleepTime = theConfig.publishInterval * 3;
   } else {
-    sleepTime = 60 * 30;
+    sleepTime = theConfig.publishInterval * 6;
   }
   Serial.print("Sleeping for: ");
   Serial.print(sleepTime);
