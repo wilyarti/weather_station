@@ -1,3 +1,6 @@
+![alt text](https://raw.githubusercontent.com/wilyarti/weather_station/master/img_20190122_173911.jpg)
+![alt text](https://raw.githubusercontent.com/wilyarti/weather_station/master/FireShot%20Capture%20002%20-%20Emerald%20Weather%20Station%20-%20ThingSpea_%20-%20https___thingspeak.com_channels_645847.png)
+
 # Introduction
 This weather station has evolved over time. I originally undersized the roof and solar panels and created about 4 different versions. I started with a 0.1W solar panel (110mmx60mm) but it was under powered and only reached charge in the later afternoon.
 
