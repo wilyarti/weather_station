@@ -1,4 +1,4 @@
-![alt text](https://clinetworking.files.wordpress.com/2019/04/img-19a2623656723d26aa2b3c141b01881f-v.jpg)
+![alt text](https://cdn.thingiverse.com/renders/24/7e/e4/54/f2/0d4fcecb5e05e6607d283115aead66ec_display_large.jpg)
 
 ![alt text](https://raw.githubusercontent.com/wilyarti/weather_station/master/FireShot%20Capture%20002%20-%20Emerald%20Weather%20Station%20-%20ThingSpea_%20-%20https___thingspeak.com_channels_645847.png)
 # Introduction
